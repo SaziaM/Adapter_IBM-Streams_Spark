@@ -1,5 +1,6 @@
 
 # Twitter Smackdown
+This repository has been taken from: https://github.com/IBMStreams/samples/tree/master/ReadAndStoreData/TwitterSmackdown
 This sample demonstrates how to:
 * Read data from Twitter using Streams
 * Track mentions of keywords
