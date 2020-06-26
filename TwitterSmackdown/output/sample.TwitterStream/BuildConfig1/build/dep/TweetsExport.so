@@ -1,0 +1,4 @@
+	@$(CXX_LN) $(SPL_CXXFLAGS) -o bin/TweetsExport.so -fPIC -shared $(SOTweetsExport) -lstreams-stdtk-runtime -lstreams_boost_iostreams -lstreams_boost_system $(SPL_LDFLAGS)\
+	    build/operator/TweetsExport.o \
+	    build/type/BeJyrNIo3K04tKkstMkvOyUzNKwEAOPwGCN.o \
+	    build/type/BeJwrMSo2SUksSQw1NCzJL0nMCSlPTS0pBgBaogg_1.o 

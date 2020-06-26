@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<applicationSet xmlns="http://www.ibm.com/xmlns/prod/streams/application/v4200" name="sample::TwitterStream.appset" xmlns:tt="http://www.ibm.com/xmlns/prod/streams/spl/tupleType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <description>sample::TwitterStream application set</description>
+
+  <splApplication adlPath="BuildConfig1/sample.TwitterStream.adl" applicationDirectory="toolkits/Smackdown" applicationScope="Default" avoidRuntimeYield="auto" buildId="" bundle="./sample.TwitterStream.sab" checkpointDirectory="/tmp/ckpt" dataDirectory="/tmp" name="sample::TwitterStream" outputDirectory="BuildConfig1" productVersion="4.2.4.0" standaloneApplicationDirectory="toolkits/Smackdown" version="1.0.0">
+    <libraries/>
+    <hostpools>
+      <hostpool index="0" membershipMode="shared" name="$default"/>
+    </hostpools>
+    <tupleTypes>
+      <tupleType index="0">
+        <attribute name="data" type="rstring"/>
+        <tuple>
+          <tt:attr name="data" type="rstring"/>
+        </tuple>
+      </tupleType>
+      <tupleType index="1">
+        <attribute name="data" type="rstring"/>
+        <attribute name="totalTweets" type="uint64"/>
+        <tuple>
+          <tt:attr name="data" type="rstring"/>
+          <tt:attr name="totalTweets" type="uint64"/>
+        </tuple>
+      </tupleType>
+    </tupleTypes>
+    <primitiveOperDefinitions>
+      <primitiveOperDefinition index="0" kind="com.ibm.streamsx.inet.http::HTTPGetStream" runtimeType="SPL_Java" toolkitIndex="2"/>
+      <primitiveOperDefinition index="1" kind="spl.relational::Filter" runtimeType="SPL_CPlusPlus" toolkitIndex="1"/>
+      <primitiveOperDefinition index="2" kind="spl.relational::Functor" runtimeType="SPL_CPlusPlus" toolkitIndex="1"/>
+      <primitiveOperDefinition index="3" kind="spl.adapter::TCPSink" runtimeType="SPL_CPlusPlus" toolkitIndex="1">
+        <customMetricIndicies>
+          <customMetricIndex>0</customMetricIndex>
+          <customMetricIndex>1</customMetricIndex>
+          <customMetricIndex>2</customMetricIndex>
+        </customMetricIndicies>
+      </primitiveOperDefinition>
+    </primitiveOperDefinitions>
+    <composites>
+      <sourceUris>
+        <uri index="0" path="file:///home/streamsadmin/workspace/TwitterSmackdown/sample/TwitterStream.spl"/>
+      </sourceUris>
+      <compositeOperDefinitions>
+        <compositeOperDefinition endLine="78" index="0" kind="sample::TwitterStream" numberOfInputPorts="0" numberOfOutputPorts="0" sourceIndex="0" startLine="12" toolkitIndex="0">
+          <description>sample::TwitterStream Composite</description>
+        </compositeOperDefinition>
+      </compositeOperDefinitions>
+      <compositeOperInstances>
+        <compositeOperInstance definitionIndex="0" endLine="78" index="4" name="sample::TwitterStream" sourceIndex="0" startLine="12">
+          <primitiveOperInstance definitionIndex="0" endLine="36" index="0" name="TwitterSource" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="false" sourceIndex="0" startLine="22">
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="TwitterSource" streamName="TwitterSource" transport="TCP" tupleTypeIndex="0" viewable="true">
+                <connections>
+                  <connection operIndex="1" operName="TwitterStatuses" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <envVars/>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" value="&quot;https://stream.twitter.com/1.1/statuses/sample.json&quot;"/>
+              <runtimeConstant name="lit$1" value="&quot;oauth&quot;"/>
+              <runtimeConstant name="lit$2" submissionTimeValueIndex="0" value="&quot;&quot;"/>
+              <runtimeConstant name="lit$3" value="&quot;consumerKey=&quot;"/>
+              <runtimeConstant name="lit$4" submissionTimeValueIndex="1" value="&quot;&quot;"/>
+              <runtimeConstant name="lit$5" value="&quot;consumerSecret=&quot;"/>
+              <runtimeConstant name="lit$6" submissionTimeValueIndex="2" value="&quot;&quot;"/>
+              <runtimeConstant name="lit$7" value="&quot;accessToken=&quot;"/>
+              <runtimeConstant name="lit$8" submissionTimeValueIndex="3" value="&quot;&quot;"/>
+              <runtimeConstant name="lit$9" value="&quot;accessTokenSecret=&quot;"/>
+              <runtimeConstant name="lit$10" value="true"/>
+              <runtimeConstant name="lit$11" value="60"/>
+              <runtimeConstant name="lit$12" value="3600"/>
+              <runtimeConstant name="lit$13" value="&quot;-Dcom.ibm.jsse2.overrideDefaultTLS=true&quot;"/>
+            </runtimeConstants>
+            <sharedObject class="TwitterSource">
+              <wrapper>none</wrapper>
+              <uri>bin/TwitterSource.so</uri>
+            </sharedObject>
+            <jvmArguments>
+              <jvmArgument>-Dcom.ibm.jsse2.overrideDefaultTLS=true</jvmArgument>
+            </jvmArguments>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="1" endLine="42" index="1" name="TwitterStatuses" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="true" sourceIndex="0" startLine="39">
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="false" name="TwitterSource" transport="TCP" tupleTypeIndex="0">
+                <connections>
+                  <connection operIndex="0" operName="TwitterSource" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="false" name="TwitterStatuses" streamName="TwitterStatuses" transport="TCP" tupleTypeIndex="0" viewable="true">
+                <connections>
+                  <connection operIndex="2" operName="Tweets" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <envVars/>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" value="-1"/>
+              <runtimeConstant name="lit$1" value="&quot;\&quot;created_at\&quot;:&quot;"/>
+            </runtimeConstants>
+            <sharedObject class="TwitterStatuses">
+              <wrapper>none</wrapper>
+              <uri>bin/TwitterStatuses.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="2" endLine="60" index="2" name="Tweets" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="true" sourceIndex="0" startLine="45">
+            <splAnnotation internal="true" tag="logicClause">
+              <value key="hasState" type="boolean">true</value>
+              <value key="hasOnProcess" type="boolean">false</value>
+              <value key="hasOnTuple" type="boolean">true</value>
+              <value key="hasOnPunct" type="boolean">false</value>
+            </splAnnotation>
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="false" name="TwitterStatuses" transport="TCP" tupleTypeIndex="0">
+                <connections>
+                  <connection operIndex="1" operName="TwitterStatuses" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="Tweets" streamName="Tweets" transport="TCP" tupleTypeIndex="1" viewable="true">
+                <connections>
+                  <connection operIndex="3" operName="TweetsExport" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <envVars/>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" value="0"/>
+            </runtimeConstants>
+            <sharedObject class="Tweets">
+              <wrapper>none</wrapper>
+              <uri>bin/Tweets.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="3" endLine="72" index="3" name="TweetsExport" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="true" sourceIndex="0" startLine="63">
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="false" name="Tweets" transport="TCP" tupleTypeIndex="1">
+                <connections>
+                  <connection operIndex="2" operName="Tweets" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <envVars/>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" value="23451"/>
+            </runtimeConstants>
+            <sharedObject class="TweetsExport">
+              <wrapper>none</wrapper>
+              <uri>bin/TweetsExport.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+        </compositeOperInstance>
+      </compositeOperInstances>
+    </composites>
+    <toolkits>
+      <toolkit index="0" name="Smackdown" uri="file:///home/streamsadmin/workspace/TwitterSmackdown" version="1.0.0"/>
+      <toolkit index="1" name="spl" uri="file:///opt/ibm/InfoSphere_Streams/4.2.4.0/toolkits/spl" version="1.4.0"/>
+      <toolkit index="2" name="com.ibm.streamsx.inet" uri="file:///opt/ibm/InfoSphere_Streams/4.2.4.0/toolkits/com.ibm.streamsx.inet" version="2.2.0"/>
+    </toolkits>
+    <customMetrics>
+      <customMetric index="0" kind="Counter" name="nReconnections">
+        <description>The number times the TCP connection was re-established.</description>
+      </customMetric>
+      <customMetric index="1" kind="Gauge" name="nConnections">
+        <description>
+The number of current TCP/IP connections. 
+If the `TCPSink` operator is waiting for a connection or a reconnection, the value is `0`.
+If the operator is currently connected,  the value is `1`. 
+</description>
+      </customMetric>
+      <customMetric index="2" kind="Counter" name="nConfirmWireFormatFailures">
+        <description>The number of times the output connection wire format handshake failed.</description>
+      </customMetric>
+    </customMetrics>
+    <submissionTimeValues>
+      <submissionTimeValue compositeName="sample::TwitterStream" index="3" kind="named" name="accessTokenSecret" required="true"/>
+      <submissionTimeValue compositeName="sample::TwitterStream" index="1" kind="named" name="consumerSecret" required="true"/>
+      <submissionTimeValue compositeName="sample::TwitterStream" index="2" kind="named" name="accessToken" required="true"/>
+      <submissionTimeValue compositeName="sample::TwitterStream" index="0" kind="named" name="consumerKey" required="true"/>
+    </submissionTimeValues>
+  </splApplication>
+
+</applicationSet>

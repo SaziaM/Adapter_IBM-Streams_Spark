@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<bundleInfoModel xmlns="http://www.ibm.com/xmlns/prod/streams/spl/bundleInfoModel" adlFile="sample.TwitterStream.adl" applicationDirectory="TwitterSmackdown" buildDate="" buildId="" bundleVersion="4200" executionMode="distributed" outputDirectory="BuildConfig1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <toolkit compileRoot="/opt/ibm/InfoSphere_Streams/4.2.4.0/toolkits/spl" name="spl" version="1.4.0">
+    <file name="toolkit.xml"/>
+  </toolkit>
+
+  <toolkit compileRoot="/opt/ibm/InfoSphere_Streams/4.2.4.0/toolkits/com.ibm.streamsx.inet" name="com.ibm.streamsx.inet" version="2.2.0">
+    <file name="opt/HTTPClient4.2.3/lib/commons-logging-1.1.1.jar"/>
+    <file name="opt/HTTPClient4.2.3/lib/httpcore-4.2.2.jar"/>
+    <file name="opt/HTTPClient4.2.3/lib/commons-codec-1.6.jar"/>
+    <file name="opt/HTTPClient4.2.3/lib/httpmime-4.2.3.jar"/>
+    <file name="opt/HTTPClient4.2.3/lib/httpclient-4.2.3.jar"/>
+    <file name="opt/HTTPClient4.2.3/lib/fluent-hc-4.2.3.jar"/>
+    <file name="opt/HTTPClient4.2.3/lib/httpclient-cache-4.2.3.jar"/>
+    <file name="opt/HTTPClient4.2.3/NOTICE.txt"/>
+    <file name="opt/HTTPClient4.2.3/LICENSE.txt"/>
+    <file name="opt/downloaded/commons-logging-1.1.1.jar"/>
+    <file name="opt/downloaded/httpclient-4.0.1.jar"/>
+    <file name="opt/downloaded/signpost-core-1.2.1.1.jar"/>
+    <file name="opt/downloaded/signpost-commonshttp4-1.2.1.1.jar"/>
+    <file name="opt/downloaded/commons-codec-1.4.jar"/>
+    <file name="opt/downloaded/httpcore-4.0.1.jar"/>
+    <file name="impl/lib/com.ibm.streamsx.inet.jar"/>
+    <file name="impl/lib/libinettoolkit.so"/>
+    <file name="impl/bin/CodeGenX.pm"/>
+    <file name="impl/nl/InetResource.dat"/>
+    <file name="toolkit.xml"/>
+    <file name="etc/http_auth_basic.properties"/>
+    <file name="etc/http_auth_oauth.properties"/>
+  </toolkit>
+
+  <toolkit compileRoot="/home/streamsadmin/workspace/TwitterSmackdown" name="Smackdown" version="1.0.0">
+    <file name="impl/bin/a.txt"/>
+    <file name="toolkit.xml"/>
+  </toolkit>
+
+</bundleInfoModel>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<operatorInstanceModel xmlns="http://www.ibm.com/xmlns/prod/streams/spl/operator/instance" xmlns:an="http://www.ibm.com/xmlns/prod/streams/spl/annotation" xmlns:tt="http://www.ibm.com/xmlns/prod/streams/spl/tupleType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <context>
+    <kind>spl.relational::Filter</kind>
+    <class>TwitterStatuses</class>
+    <operatorModelDirectory>/opt/ibm/InfoSphere_Streams/4.2.4.0/toolkits/spl/spl/relational/Filter</operatorModelDirectory>
+    <applicationDirectory>/home/streamsadmin/workspace/TwitterSmackdown</applicationDirectory>
+    <dataDirectory>/tmp</dataDirectory>
+    <outputDirectory>/home/streamsadmin/workspace/TwitterSmackdown/output/sample.TwitterStream/BuildConfig1</outputDirectory>
+    <toolkits>
+      <toolkit isCurrentToolkit="false">
+        <name>Smackdown</name>
+        <rootDirectory>/home/streamsadmin/workspace/TwitterSmackdown</rootDirectory>
+        <index>0</index>
+      </toolkit>
+      <toolkit isCurrentToolkit="true">
+        <name>spl</name>
+        <rootDirectory>/opt/ibm/InfoSphere_Streams/4.2.4.0/toolkits/spl</rootDirectory>
+        <index>1</index>
+      </toolkit>
+      <toolkit isCurrentToolkit="false">
+        <name>com.ibm.streamsx.inet</name>
+        <rootDirectory>/opt/ibm/InfoSphere_Streams/4.2.4.0/toolkits/com.ibm.streamsx.inet</rootDirectory>
+        <index>2</index>
+      </toolkit>
+    </toolkits>
+    <optimized>true</optimized>
+    <verbose>false</verbose>
+    <networkByteOrdering>false</networkByteOrdering>
+    <codeBeautification>false</codeBeautification>
+    <includes>
+      <include>"../type/BeJwrMSw2SUksSQQADLECDn.h"</include>
+    </includes>
+    <stateVariables/>
+    <runtimeConstants>
+      <runtimeConstant>
+        <name>lit$0</name>
+        <cppType>SPL::int32</cppType>
+        <splType>int32</splType>
+        <value>-1</value>
+      </runtimeConstant>
+      <runtimeConstant>
+        <name>lit$1</name>
+        <cppType>SPL::rstring</cppType>
+        <splType>rstring</splType>
+        <value>"\"created_at\":"</value>
+      </runtimeConstant>
+    </runtimeConstants>
+    <sourceLocation>
+      <file>sample/TwitterStream.spl</file>
+      <line>39</line>
+      <column>3</column>
+    </sourceLocation>
+    <productVersion>4.2.4.0</productVersion>
+    <checkpointKind>none</checkpointKind>
+  </context>
+
+  <parameters>
+    <parameter>
+      <name>filter</name>
+      <values>
+        <value>
+          <cppType>SPL::boolean</cppType>
+          <splType>boolean</splType>
+          <hasRuntimeConstant>true</hasRuntimeConstant>
+          <cppExpression>(::SPL::Functions::String::findFirst(iport$0.get_data(), lit$1) &gt; lit$0)</cppExpression>
+          <splExpression>findFirst(TwitterSource.data, "\"created_at\":") &gt; -1</splExpression>
+          <hasFunctions>true</hasFunctions>
+          <hasSideEffects>false</hasSideEffects>
+          <readsState>false</readsState>
+          <hasStreamAttributes>true</hasStreamAttributes>
+          <parameterExpressionMode>Expression</parameterExpressionMode>
+          <sourceLocation>
+            <file>sample/TwitterStream.spl</file>
+            <line>41</line>
+            <column>13</column>
+          </sourceLocation>
+        </value>
+      </values>
+      <sourceLocation>
+        <file>sample/TwitterStream.spl</file>
+        <line>41</line>
+        <column>5</column>
+      </sourceLocation>
+    </parameter>
+  </parameters>
+
+  <inputPorts>
+    <inputPort>
+      <index>0</index>
+      <tupleCppName>iport$0</tupleCppName>
+      <tupleCppType>SPL::BeJwrMSw2SUksSQQADLECDn</tupleCppType>
+      <tupleSPLType>tuple&lt;rstring data&gt;</tupleSPLType>
+      <facade>false</facade>
+      <mutationAllowed>false</mutationAllowed>
+      <sourceLocation>
+        <file>sample/TwitterStream.spl</file>
+        <line>39</line>
+        <column>50</column>
+      </sourceLocation>
+      <attributes>
+        <attribute>
+          <name>data</name>
+          <cppType>SPL::rstring</cppType>
+          <splType>rstring</splType>
+        </attribute>
+      </attributes>
+      <tuple>
+        <tt:attr name="data" type="rstring"/>
+      </tuple>
+    </inputPort>
+  </inputPorts>
+
+  <outputPorts>
+    <outputPort>
+      <index>0</index>
+      <tupleCppName>oport$0</tupleCppName>
+      <tupleCppType>SPL::BeJwrMSw2SUksSQQADLECDn</tupleCppType>
+      <tupleSPLType>tuple&lt;rstring data&gt;</tupleSPLType>
+      <facade>false</facade>
+      <mutationAllowed>false</mutationAllowed>
+      <sourceLocation>
+        <file>sample/TwitterStream.spl</file>
+        <line>39</line>
+        <column>3</column>
+      </sourceLocation>
+      <attributes>
+        <attribute>
+          <name>data</name>
+          <cppType>SPL::rstring</cppType>
+          <splType>rstring</splType>
+          <assignment>
+            <sourceLocation>
+              <file>&lt;invalid&gt;</file>
+              <line>-1</line>
+              <column>0</column>
+            </sourceLocation>
+            <values>
+              <value>
+                <cppType>SPL::rstring</cppType>
+                <splType>rstring</splType>
+                <hasRuntimeConstant>false</hasRuntimeConstant>
+                <cppExpression>iport$0.get_data()</cppExpression>
+                <splExpression>TwitterSource.data</splExpression>
+                <hasFunctions>false</hasFunctions>
+                <hasSideEffects>false</hasSideEffects>
+                <readsState>false</readsState>
+                <hasStreamAttributes>true</hasStreamAttributes>
+                <sourceLocation>
+                  <file>&lt;invalid&gt;</file>
+                  <line>-1</line>
+                  <column>0</column>
+                </sourceLocation>
+              </value>
+            </values>
+          </assignment>
+        </attribute>
+      </attributes>
+      <tuple>
+        <tt:attr name="data" type="rstring"/>
+      </tuple>
+      <finalPunctuationPortScope>
+        <port>0</port>
+      </finalPunctuationPortScope>
+    </outputPort>
+  </outputPorts>
+
+</operatorInstanceModel>
