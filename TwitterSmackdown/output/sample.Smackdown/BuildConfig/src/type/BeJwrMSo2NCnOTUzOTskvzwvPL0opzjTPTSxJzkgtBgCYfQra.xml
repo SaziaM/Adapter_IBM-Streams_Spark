@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<tupleModel xmlns="http://www.ibm.com/xmlns/prod/streams/spl/tuple" class="BeJwrMSo2NCnOTUzOTskvzwvPL0opzjTPTSxJzkgtBgCYfQra" equalitySupported="true" facade="false" splType="tuple&lt;rstring smackdownWords,int32 matches>" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <headers/>
+
+  <attributes>
+    <attribute>
+      <name>smackdownWords</name>
+      <cppType>SPL::rstring</cppType>
+      <splType>rstring</splType>
+    </attribute>
+    <attribute>
+      <name>matches</name>
+      <cppType>SPL::int32</cppType>
+      <splType>int32</splType>
+    </attribute>
+  </attributes>
+
+</tupleModel>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<applicationSet xmlns="http://www.ibm.com/xmlns/prod/streams/application/v4200" name="sample::Smackdown.appset" xmlns:tt="http://www.ibm.com/xmlns/prod/streams/spl/tupleType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <description>sample::Smackdown application set</description>
+
+  <splApplication adlPath="BuildConfig/sample.Smackdown.adl" applicationDirectory="toolkits/Smackdown" applicationScope="Default" avoidRuntimeYield="auto" buildId="" bundle="./sample.Smackdown.sab" checkpointDirectory="/tmp/ckpt" dataDirectory="/tmp" name="sample::Smackdown" outputDirectory="BuildConfig" productVersion="4.2.4.0" standaloneApplicationDirectory="toolkits/Smackdown" version="1.0.0">
+    <libraries/>
+    <hostpools>
+      <hostpool index="0" membershipMode="shared" name="$default"/>
+    </hostpools>
+    <tupleTypes>
+      <tupleType index="0">
+        <attribute name="data" type="rstring"/>
+        <attribute name="totalTweets" type="uint64"/>
+        <tuple>
+          <tt:attr name="data" type="rstring"/>
+          <tt:attr name="totalTweets" type="uint64"/>
+        </tuple>
+      </tupleType>
+      <tupleType index="1">
+        <attribute name="smackdownWords" type="rstring"/>
+        <attribute name="match" type="int32"/>
+        <tuple>
+          <tt:attr name="smackdownWords" type="rstring"/>
+          <tt:attr name="match" type="int32"/>
+        </tuple>
+      </tupleType>
+      <tupleType index="2">
+        <attribute name="smackdownWords" type="rstring"/>
+        <attribute name="matches" type="int32"/>
+        <tuple>
+          <tt:attr name="smackdownWords" type="rstring"/>
+          <tt:attr name="matches" type="int32"/>
+        </tuple>
+      </tupleType>
+    </tupleTypes>
+    <primitiveOperDefinitions>
+      <primitiveOperDefinition index="0" kind="spl.adapter::Import" runtimeType="SPL_CPlusPlus" toolkitIndex="1"/>
+      <primitiveOperDefinition index="1" kind="spl.utility::Custom" runtimeType="SPL_CPlusPlus" toolkitIndex="1"/>
+      <primitiveOperDefinition index="2" kind="spl.relational::Aggregate" runtimeType="SPL_CPlusPlus" toolkitIndex="1">
+        <customMetricIndicies>
+          <customMetricIndex>0</customMetricIndex>
+        </customMetricIndicies>
+      </primitiveOperDefinition>
+    </primitiveOperDefinitions>
+    <composites>
+      <sourceUris>
+        <uri index="0" path="file:///home/streamsadmin/workspace/TwitterSmackdown/sample/Smackdown.spl"/>
+      </sourceUris>
+      <compositeOperDefinitions>
+        <compositeOperDefinition endLine="103" index="0" kind="sample::Smackdown" numberOfInputPorts="0" numberOfOutputPorts="0" sourceIndex="0" startLine="18" toolkitIndex="0">
+          <description>sample::Smackdown Composite</description>
+        </compositeOperDefinition>
+      </compositeOperDefinitions>
+      <compositeOperInstances>
+        <compositeOperInstance definitionIndex="0" endLine="103" index="3" name="sample::Smackdown" sourceIndex="0" startLine="18">
+          <primitiveOperInstance definitionIndex="1" endLine="73" index="0" name="Matches" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="true" sourceIndex="0" startLine="34">
+            <description>Scan tweet data for each of the smackdown words</description>
+            <splAnnotation internal="true" tag="logicClause">
+              <value key="hasState" type="boolean">true</value>
+              <value key="hasOnProcess" type="boolean">false</value>
+              <value key="hasOnTuple" type="boolean">true</value>
+              <value key="hasOnPunct" type="boolean">false</value>
+            </splAnnotation>
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="TweetsImport" transport="TCP" tupleTypeIndex="0">
+                <connections>
+                  <connection operIndex="4" operName="TweetsImport" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="Matches" streamName="Matches" transport="TCP" tupleTypeIndex="1" viewable="true">
+                <connections>
+                  <connection operIndex="1" operName="MatchAggregate" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <envVars/>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" submissionTimeValueIndex="0" value="&quot;&quot;"/>
+              <runtimeConstant name="lit$1" value="&quot;,&quot;"/>
+              <runtimeConstant name="lit$2" value="false"/>
+              <runtimeConstant name="lit$3" value="&quot;|&quot;"/>
+              <runtimeConstant name="lit$4" value="false"/>
+              <runtimeConstant name="lit$5" value="0"/>
+              <runtimeConstant name="lit$6" value="0"/>
+              <runtimeConstant name="lit$7" value="&quot;Smackdown opponent: &quot;"/>
+              <runtimeConstant name="lit$8" value="true"/>
+              <runtimeConstant name="lit$9" value="0"/>
+              <runtimeConstant name="lit$10" value="&quot;)&quot;"/>
+              <runtimeConstant name="lit$11" value="&quot;(?i)(&quot;"/>
+              <runtimeConstant name="lit$12" value="0"/>
+              <runtimeConstant name="lit$13" value="0"/>
+              <runtimeConstant name="lit$14" value="1"/>
+              <runtimeConstant name="lit$15" value="0"/>
+              <runtimeConstant name="lit$16" value="false"/>
+            </runtimeConstants>
+            <sharedObject class="Matches">
+              <wrapper>none</wrapper>
+              <uri>bin/Matches.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="2" endLine="86" index="1" name="MatchAggregate" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="false" sourceIndex="0" startLine="76">
+            <description>Aggregate counts for each word over five minutes</description>
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="false" name="Matches" transport="TCP" tupleTypeIndex="1">
+                <connections>
+                  <connection operIndex="0" operName="Matches" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="MatchAggregate" streamName="MatchAggregate" transport="TCP" tupleTypeIndex="2" viewable="true">
+                <connections>
+                  <connection operIndex="2" operName="AggConsole" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <envVars/>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" value="300"/>
+              <runtimeConstant name="lit$1" value="60"/>
+            </runtimeConstants>
+            <sharedObject class="MatchAggregate">
+              <wrapper>none</wrapper>
+              <uri>bin/MatchAggregate.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="1" endLine="97" index="2" name="AggConsole" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="true" sourceIndex="0" startLine="89">
+            <description>Print results for viewing in console log</description>
+            <splAnnotation internal="true" tag="logicClause">
+              <value key="hasState" type="boolean">false</value>
+              <value key="hasOnProcess" type="boolean">false</value>
+              <value key="hasOnTuple" type="boolean">true</value>
+              <value key="hasOnPunct" type="boolean">false</value>
+            </splAnnotation>
+            <inputPorts>
+              <port encoding="LE" index="0" isControl="true" isMutable="false" name="MatchAggregate" transport="TCP" tupleTypeIndex="2">
+                <connections>
+                  <connection operIndex="1" operName="MatchAggregate" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <envVars/>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants/>
+            <sharedObject class="AggConsole">
+              <wrapper>none</wrapper>
+              <uri>bin/AggConsole.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveImportOperInstance definitionIndex="0" endLine="31" index="4" name="TweetsImport" sourceIndex="0" startLine="26">
+            <description>Import the feed from TwitterStream application</description>
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="false" name="TweetsImport" streamName="TweetsImport" transport="TCP" tupleTypeIndex="0" viewable="false">
+                <connections>
+                  <connection operIndex="0" operName="Matches" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <nameBasedImport applicationName="sample::TwitterStream" streamName="TweetsExport"/>
+          </primitiveImportOperInstance>
+        </compositeOperInstance>
+      </compositeOperInstances>
+    </composites>
+    <toolkits>
+      <toolkit index="0" name="Smackdown" uri="file:///home/streamsadmin/workspace/TwitterSmackdown" version="1.0.0"/>
+      <toolkit index="1" name="spl" uri="file:///opt/ibm/InfoSphere_Streams/4.2.4.0/toolkits/spl" version="1.4.0"/>
+    </toolkits>
+    <customMetrics>
+      <customMetric index="0" kind="Gauge" name="nCurrentPartitions">
+        <description>The number of partitions in the window.</description>
+      </customMetric>
+    </customMetrics>
+    <submissionTimeValues>
+      <submissionTimeValue compositeName="sample::Smackdown" index="0" kind="named" name="opponents" required="true"/>
+    </submissionTimeValues>
+  </splApplication>
+
+</applicationSet>

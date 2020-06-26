@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<bundleInfoModel xmlns="http://www.ibm.com/xmlns/prod/streams/spl/bundleInfoModel" adlFile="sample.Smackdown.adl" applicationDirectory="TwitterSmackdown" buildDate="" buildId="" bundleVersion="4200" executionMode="distributed" outputDirectory="BuildConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <toolkit compileRoot="/opt/ibm/InfoSphere_Streams/4.2.4.0/toolkits/spl" name="spl" version="1.4.0">
+    <file name="toolkit.xml"/>
+  </toolkit>
+
+  <toolkit compileRoot="/home/streamsadmin/workspace/TwitterSmackdown" name="Smackdown" version="1.0.0">
+    <file name="impl/bin/a.txt"/>
+    <file name="toolkit.xml"/>
+  </toolkit>
+
+</bundleInfoModel>
