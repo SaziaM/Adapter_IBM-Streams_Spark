@@ -1,0 +1,25 @@
+namespace application ;
+
+composite Main
+{
+	graph
+		stream<rstring str> A = FileSource()
+		{
+			param
+				file : "result.csv" ;
+		}
+
+		() as TCPSink1 = TCPSink(A)
+		{
+			param
+				port :(uint32) 23453 ;
+				role : server ;
+				flush : 1u ;
+				flushOnPunctuation : true ;
+				retryFailedSends : true ;
+		}
+
+}
+
+          
+
