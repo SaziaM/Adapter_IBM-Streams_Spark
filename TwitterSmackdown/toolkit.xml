@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<toolkitModel xmlns="http://www.ibm.com/xmlns/prod/streams/spl/toolkit" productVersion="4.2.4.0" xmlns:common="http://www.ibm.com/xmlns/prod/streams/spl/common" xmlns:ti="http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <toolkit name="Smackdown" requiredProductVersion="4.1.0" version="1.0.0">
+    <description>Connect to twitter and rank keywords by popularity</description>
+    <uriTable>
+      <uri index="2" value="sample/TwitterStream.spl"/>
+      <uri index="1" value="sample/Smackdown.spl"/>
+    </uriTable>
+    <namespace name="sample">
+      <compositeOp column="11" line="18" name="Smackdown" potentialMain="true" uriIndex="1">
+        <parameter defaultValue="(list&lt;rstring>)tokenize(getSubmissionTimeValue(&quot;opponents&quot;), &quot;,&quot;, false)" metaType="Expression" name="opponents" optional="true" type="&lt;list&lt;rstring>>"/>
+      </compositeOp>
+      <compositeOp column="11" line="12" name="TwitterStream" potentialMain="true" uriIndex="2">
+        <parameter defaultValue="getSubmissionTimeValue(&quot;consumerKey&quot;)" metaType="Expression" name="consumerKey" optional="true" type="&lt;rstring>"/>
+        <parameter defaultValue="getSubmissionTimeValue(&quot;consumerSecret&quot;)" metaType="Expression" name="consumerSecret" optional="true" type="&lt;rstring>"/>
+        <parameter defaultValue="getSubmissionTimeValue(&quot;accessToken&quot;)" metaType="Expression" name="accessToken" optional="true" type="&lt;rstring>"/>
+        <parameter defaultValue="getSubmissionTimeValue(&quot;accessTokenSecret&quot;)" metaType="Expression" name="accessTokenSecret" optional="true" type="&lt;rstring>"/>
+      </compositeOp>
+    </namespace>
+    <dependency>
+      <common:name>com.ibm.streamsx.inet</common:name>
+      <common:version>[2.2.0,4.0.0)</common:version>
+    </dependency>
+    <sabFiles>
+      <ti:include path="toolkit.xml" root="toolkitDir"/>
+      <ti:include path="impl/java/lib/**" root="toolkitDir"/>
+      <ti:include path="impl/java/bin/**" root="toolkitDir"/>
+      <ti:include path="impl/bin/**" root="toolkitDir"/>
+      <ti:include path="impl/lib/**" root="toolkitDir"/>
+      <ti:include path="impl/nl/*.dat" root="toolkitDir"/>
+      <ti:include path="etc/**" root="toolkitDir"/>
+      <ti:include path="lib/**" root="toolkitDir"/>
+      <ti:include path="nl/**" root="toolkitDir"/>
+      <ti:include path="opt/**" root="toolkitDir"/>
+    </sabFiles>
+  </toolkit>
+
+</toolkitModel>
